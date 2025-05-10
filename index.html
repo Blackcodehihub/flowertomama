@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mother's Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        /* Bloom animation */
+        @keyframes bloom {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        /* Pulse animation for flower center */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Enhanced heading animation */
+        @keyframes glowPulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 182, 193, 0.5), 0 0 30px rgba(199, 21, 133, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(255, 182, 193, 0.7), 0 0 35px rgba(199, 21, 133, 0.5); }
+        }
+        
+        .glow-pulse {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        
+        /* Enhanced background */
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #e1bee7 50%, #d1c4e9 100%);
+            position: relative;
+            font-family: 'font-serif';
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path fill="%23ffffff" fill-opacity="0.15" d="M25 10a5 5 0 0 0-5 5 5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5zm0 30a5 5 0 0 0-5 5 5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5z"/></svg>') repeat;
+            z-index: -1;
+        }
+        
+        /* Flower styles for garden */
+        .flower {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            transform-origin: center bottom;
+            animation: bloom 1s ease-out forwards;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        }
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: radial-gradient(circle at 50% 20%, #ffffff 10%, #f06292 50%, #d81b60 90%);
+            border-radius: 60% 60% 30% 30%;
+            transform-origin: center bottom;
+            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2), inset 2px 2px 4px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: rotate(0deg) translateY(-15px) skew(5deg);
+        }
+        
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-15px) skew(5deg); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-15px) skew(5deg); }
+
+        .flower-stem {
+            position: absolute;
+            width: 5px;
+            height: 70px;
+            background: linear-gradient(to right, #2e7d32 20%, #388e3c 50%, #1b5e20 80%);
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .flower-stem::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background: radial-gradient(circle at 50% 20%, #4caf50 20%, #388e3c 80%);
+            border-radius: 50% 50% 20% 20%;
+            top: 20px;
+            left: -5px;
+            transform: rotate(-30deg);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        /* Bubble animation */
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes bubblePop {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .bubble {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 20%, rgba(240, 98, 146, 0.6) 80%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: bubbleFloat 4s ease-in-out infinite;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .bubble.popping {
+            animation: bubblePop 0.5s ease-out forwards;
+            pointer-events: none;
+        }
+        .bubble-flower {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+        .bubble-petal {
+            position: absolute;
+            width: 14px;
+            height: 20px;
+            background: radial-gradient(circle at 50% 20%, #ffffff 10%, #f06292 50%, #d81b60 90%);
+            border-radius: 60% 60% 30% 30%;
+            transform-origin: center bottom;
+            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+            transform: rotate(0deg) translateY(-10px) skew(5deg);
+        }
+        .bubble-petal::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+            border-radius: inherit;
+        }
+        .bubble-petal:nth-child(1) { transform: rotate(0deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(2) { transform: rotate(45deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(3) { transform: rotate(90deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(4) { transform: rotate(135deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(5) { transform: rotate(180deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(6) { transform: rotate(225deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(7) { transform: rotate(270deg) translateY(-10px) skew(5deg); }
+        .bubble-petal:nth-child(8) { transform: rotate(315deg) translateY(-10px) skew(5deg); }
+        .bubble-center {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+           
+            animation: pulse 2s ease-in-out infinite;
+        }
+       
+        /* Message popup */
+        .message-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, #ffffff, #fce4ec);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .message-popup button {
+            margin-top: 1rem;
+            background: linear-gradient(to right, #f06292, #7b1fa2);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+        }
+        .message-popup button:hover {
+            background: linear-gradient(to right, #e91e63, #4a148c);
+        }
+        /* Heart Blossom Game */
+        @keyframes fall {
+            0% { transform: translateY(-50px); opacity: 1; }
+            100% { transform: translateY(320px); opacity: 0.5; }
+        }
+        .falling-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #e91e63;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            animation: fall 6s linear forwards;
+        }
+        .falling-heart::before,
+        .falling-heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #e91e63;
+            border-radius: 50%;
+        }
+        .falling-heart::before {
+            top: -15px;
+            left: 0;
+        }
+        .falling-heart::after {
+            left: 15px;
+            top: 0;
+        }
+        .blossom-message {
+            position: absolute;
+            text-align: center;
+            animation: bloom 0.5s ease-out forwards;
+            z-index: 10;
+        }
+        .blossom-message .flower {
+            position: relative;
+            margin: 0 auto;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+        .blossom-message .petal {
+            width: 14px;
+            height: 20px;
+            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .blossom-message .flower-center {
+            width: 12px;
+            height: 12px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 6px rgba(255, 202, 40, 0.5);
+        }
+        .blossom-message .flower-center::before {
+            width: 10px;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="2" cy="2" r="1" fill="%23a68b00"/><circle cx="5" cy="2" r="1" fill="%23a68b00"/><circle cx="8" cy="2" r="1" fill="%23a68b00"/><circle cx="2" cy="5" r="1" fill="%23a68b00"/><circle cx="5" cy="5" r="1" fill="%23a68b00"/><circle cx="8" cy="5" r="1" fill="%23a68b00"/><circle cx="2" cy="8" r="1" fill="%23a68b00"/><circle cx="5" cy="8" r="1" fill="%23a68b00"/><circle cx="8" cy="8" r="1" fill="%23a68b00"/><path d="M5 5 L5 5" stroke="%23a68b00" stroke-width="0.5"/></svg>');
+            background-size: cover;
+        }
+        /* Love Petal Cascade */
+        @keyframes petalFall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(320px) rotate(360deg); opacity: 0.5; }
+        }
+        .falling-petal {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: radial-gradient(circle at 50% 20%, #ffffff 10%, #f06292 50%, #d81b60 90%);
+            border-radius: 60% 60% 30% 30%;
+            cursor: pointer;
+            animation: petalFall 8s linear forwards;
+            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2), inset 2px 2px 4px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .falling-petal::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+            border-radius: inherit;
+        }
+        .cascade-message {
+            position: absolute;
+            text-align: center;
+            animation: bloom 0.5s ease-out forwards;
+            z-index: 10;
+        }
+        .cascade-message .flower {
+            position: relative;
+            margin: 0 auto;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+        .cascade-message .petal {
+            width: 14px;
+            height: 20px;
+            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .cascade-message .flower-center {
+            width: 12px;
+            height: 12px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 6px rgba(255, 202, 40, 0.5);
+        }
+        .cascade-message .flower-center::before {
+            width: 10px;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="2" cy="2" r="1" fill="%23a68b00"/><circle cx="5" cy="2" r="1" fill="%23a68b00"/><circle cx="8" cy="2" r="1" fill="%23a68b00"/><circle cx="2" cy="5" r="1" fill="%23a68b00"/><circle cx="5" cy="5" r="1" fill="%23a68b00"/><circle cx="8" cy="5" r="1" fill="%23a68b00"/><circle cx="2" cy="8" r="1" fill="%23a68b00"/><circle cx="5" cy="8" r="1" fill="%23a68b00"/><circle cx="8" cy="8" r="1" fill="%23a68b00"/><path d="M5 5 L5 5" stroke="%23a68b00" stroke-width="0.5"/></svg>');
+            background-size: cover;
+        }
+        /* Heart particle animation */
+        @keyframes heartFloat {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+        }
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #e91e63;
+            transform: rotate(-45deg);
+            animation: heartFloat 2s ease-out forwards;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #e91e63;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -7.5px;
+            left: 0;
+        }
+        .heart::after {
+            left: 7.5px;
+            top: 0;
+        }
+        /* Background floating hearts */
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+        .bg-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f06292;
+            transform: rotate(-45deg);
+            animation: floatHeart 10s linear infinite;
+            z-index: -1;
+        }
+        .bg-heart::before,
+        .bg-heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f06292;
+            border-radius: 50%;
+        }
+        .bg-heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .bg-heart::after {
+            left: 10px;
+            top: 0;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .parallax {
+                background-attachment: scroll;
+            }
+            .flower {
+                width: 40px;
+                height: 40px;
+            }
+            .petal {
+                width: 14px;
+                height: 20px;
+                transform-origin: center bottom;
+                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+            .petal:nth-child(n) { transform: rotate(calc(45deg * (n-1))) translateY(-10px) skew(5deg); }
+            .flower-center {
+                width: 12px;
+                height: 12px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* Ensure transform is also applied here for consistency */
+                box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 6px rgba(255, 202, 40, 0.5);
+            }
+            .flower-center::before {
+                width: 10px;
+                height: 10px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="2" cy="2" r="1" fill="%23a68b00"/><circle cx="5" cy="2" r="1" fill="%23a68b00"/><circle cx="8" cy="2" r="1" fill="%23a68b00"/><circle cx="2" cy="5" r="1" fill="%23a68b00"/><circle cx="5" cy="5" r="1" fill="%23a68b00"/><circle cx="8" cy="5" r="1" fill="%23a68b00"/><circle cx="2" cy="8" r="1" fill="%23a68b00"/><circle cx="5" cy="8" r="1" fill="%23a68b00"/><circle cx="8" cy="8" r="1" fill="%23a68b00"/><path d="M5 5 L5 5" stroke="%23a68b00" stroke-width="0.5"/></svg>');
+                background-size: cover;
+            }
+            .flower-stem {
+                height: 50px;
+            }
+            .flower-stem::before {
+                width: 8px;
+                height: 12px;
+                top: 15px;
+                left: -4px;
+            }
+            .bubble {
+                width: 50px;
+                height: 50px;
+            }
+            .bubble-flower {
+                width: 30px;
+                height: 30px;
+            }
+            .bubble-petal {
+                width: 10px;
+                height: 15px;
+                box-shadow: inset -0.5px -0.5px 1px rgba(0, 0, 0, 0.2), inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.3), 0 0.5px 1px rgba(0, 0, 0, 0.2);
+            }
+            .bubble-center {
+                width: 8px;
+                height: 8px;
+                box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.3), 0 0 4px rgba(255, 202, 40, 0.5);
+            }
+            .bubble-center::before {
+                width: 6px;
+                height: 6px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6"><circle cx="1.5" cy="1.5" r="0.5" fill="%23a68b00"/><circle cx="3" cy="1.5" r="0.5" fill="%23a68b00"/><circle cx="4.5" cy="1.5" r="0.5" fill="%23a68b00"/><circle cx="1.5" cy="3" r="0.5" fill="%23a68b00"/><circle cx="3" cy="3" r="0.5" fill="%23a68b00"/><circle cx="4.5" cy="3" r="0.5" fill="%23a68b00"/><circle cx="1.5" cy="4.5" r="0.5" fill="%23a68b00"/><circle cx="3" cy="4.5" r="0.5" fill="%23a68b00"/><circle cx="4.5" cy="4.5" r="0.5" fill="%23a68b00"/><path d="M3 3 L3 3" stroke="%23a68b00" stroke-width="0.3"/></svg>');
+                background-size: cover;
+            }
+            .falling-heart {
+                width: 20px;
+                height: 20px;
+            }
+            .falling-heart::before,
+            .falling-heart::after {
+                width: 20px;
+                height: 20px;
+            }
+            .falling-heart::before {
+                top: -10px;
+            }
+            .falling-heart::after {
+                left: 10px;
+            }
+            .falling-petal {
+                width: 14px;
+                height: 20px;
+                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2), inset 1px 1px 2px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+            .heart, .bg-heart {
+                width: 12px;
+                height: 12px;
+            }
+            .heart::before, .heart::after,
+            .bg-heart::before, .bg-heart::after {
+                width: 12px;
+                height: 12px;
+            }
+            .heart::before, .bg-heart::before {
+                top: -6px;
+            }
+            .heart::after, .bg-heart::after {
+                left: 6px;
+            }
+            .message-popup {
+                width: 90%;
+                padding: 1.5rem;
+            }
+            @keyframes fall {
+                0% { transform: translateY(-50px); opacity: 1; }
+                100% { transform: translateY(320px); opacity: 0.5; }
+            }
+            @keyframes petalFall {
+                0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(320px) rotate(360deg); opacity: 0.5; }
+            }
+        }
+    </style>
+</head>
+<body class="font-serif text-gray-800">
+    <!-- Floating Background Hearts -->
+    <div id="bgHearts" class="fixed inset-0 pointer-events-none"></div>
+
+    <!-- Homepage -->
+    <div id="homepage" class="min-h-screen flex flex-col items-center justify-center text-center bg-[url('https://images.unsplash.com/photo-1461696114087-397271a7aedc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-pink-500/30 to-purple-900/60"></div>
+        <div class="relative z-10 bg-black bg-opacity-60 p-8 md:p-12 rounded-2xl shadow-2xl border border-pink-300/30">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)] glow-pulse">Happy Mother's Day 2025</h1>
+            <p class="mt-4 text-lg md:text-2xl text-pink-100 max-w-2xl">A celebration of your endless love and grace.</p>
+            <a href="#dashboard" class="mt-8 inline-block bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-12 rounded-full hover:from-pink-600 hover:to-purple-700 transition text-lg font-semibold shadow-lg hover:shadow-pink-500/20 hover:scale-105 transition-all duration-300">Explore Your Tribute</a>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header with Parallax -->
+        <header class="parallax bg-[url('https://images.unsplash.com/photo-1461696114087-397271a7aedc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] h-96 flex items-center justify-center text-center relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-pink-500/30 to-purple-900/60"></div>
+            <div class="relative z-10 bg-black bg-opacity-60 p-6 rounded-2xl shadow-xl border border-pink-300/30">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 drop-shadow-[0_2px_4px_rgba(255,255,255,0.4)] glow-pulse">Happy Mother's Day!</h1>
+                <p class="mt-2 text-lg md:text-2xl text-pink-100">You Are Our Heart</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto p-4 md:p-8">
+            <!-- Welcome Section -->
+            <section class="my-12 text-center">
+                <div class="float mx-auto mb-6 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
+                    <span class="text-2xl md:text-4xl text-white font-bold">🌸</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">To You, With Love</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700 max-w-3xl mx-auto">
+                    Your love is our strength, your wisdom our guide, and your smile our joy. This Mother's Day, we celebrate everything you are.
+                </p>
+            </section>
+
+            <!-- Flower Garden Section -->
+            <section class="my-12 text-center bg-white p-8 rounded-2xl shadow-lg border border-pink-200">
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">Your Garden of Love</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700">Tap to grow flowers, each one a tribute to your heart. <span id="flowerCount" class="font-bold text-pink-600">0</span> flowers bloomed!</p>
+                <div id="flowerGarden" class="relative mt-6 w-full h-80 bg-gradient-to-b from-green-200 to-green-300 rounded-lg overflow-hidden" style="cursor: pointer;"></div>
+            </section>
+
+            <!-- Flower Message Garden Section -->
+            <section class="my-12 text-center bg-white p-8 rounded-2xl shadow-lg border border-pink-200">
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">Your Message Garden</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700">Tap the floating bubbles to reveal heartfelt messages for you.</p>
+                <div id="messageGarden" class="relative mt-6 w-full h-80 bg-gradient-to-b from-purple-100 to-pink-100 rounded-lg overflow-hidden flex flex-wrap justify-center items-center gap-4"></div>
+            </section>
+
+            <!-- Heart Blossom Game Section -->
+            <section class="my-12 text-center bg-white p-8 rounded-2xl shadow-lg border border-pink-200">
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">Heart Blossom Messages</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700">Click falling hearts to bloom messages filled with love!</p>
+                <div id="heartBlossom" class="relative mt-6 w-full h-80 bg-gradient-to-b from-pink-100 to-purple-100 rounded-lg overflow-hidden"></div>
+                <p class="mt-4 text-base md:text-lg text-gray-700">Score: <span id="blossomScore" class="font-bold text-pink-600">0</span> messages bloomed!</p>
+                <button id="collectLove" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 px-8 rounded-full hover:from-pink-600 hover:to-purple-700 transition hover:shadow-lg hover:shadow-pink-500/20 hover:scale-105 transition-all duration-300">Collect Love</button>
+            </section>
+
+            <!-- Love Petal Cascade Section -->
+            <section class="my-12 text-center bg-white p-8 rounded-2xl shadow-lg border border-pink-200">
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">Love Petal Cascade</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700">Hover over or tap falling petals to reveal messages of love!</p>
+                <div id="petalCascade" class="relative mt-6 w-full h-80 bg-gradient-to-b from-pink-200 to-purple-200 rounded-lg overflow-hidden"></div>
+            </section>
+
+            <!-- Celebration Section -->
+            <section class="my-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-700 drop-shadow-sm">A Day for You</h2>
+                <p class="mt-4 text-base md:text-lg text-gray-700 max-w-3xl mx-auto">
+                    Today, we celebrate you, your love, your laughter, your heart. Happy Mother's Day!
+                </p>
+                <button class="mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 px-8 rounded-full hover:from-purple-700 hover:to-pink-600 transition hover:shadow-lg hover:shadow-pink-500/20 hover:scale-105 transition-all duration-300">You Are Treasured!</button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gradient-to-r from-purple-400 to-pink-400 py-8 text-center text-white relative overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute inset-0 opacity-20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800" preserveAspectRatio="none">
+                        <defs>
+                            <pattern id="heart-pattern" width="50" height="50" patternUnits="userSpaceOnUse">
+                                <path d="M25 10 A10 10 0 0 0 15 20 A10 10 0 0 0 25 30 A10 10 0 0 0 35 20 A10 10 0 0 0 25 10Z" fill="white" fill-opacity="0.2"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#heart-pattern)"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="relative z-10">
+                <p class="text-lg font-medium">Created with 💖 for You, Mother's Day 2025</p>
+                <div class="flex justify-center mt-4 space-x-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-pink-200 animate-pulse"></span>
+                    <span class="inline-block w-3 h-3 rounded-full bg-pink-200 animate-pulse" style="animation-delay: 0.2s"></span>
+                    <span class="inline-block w-3 h-3 rounded-full bg-pink-200 animate-pulse" style="animation-delay: 0.4s"></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript for Navigation, Flower Garden, Message Bubbles, Heart Blossom Game, and Love Petal Cascade -->
+    <script>
+        // Background Floating Hearts
+        const bgHearts = document.getElementById('bgHearts');
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.style.animationDuration = `${8 + Math.random() * 4}s`;
+            bgHearts.appendChild(heart);
+        }
+
+        // Navigation between homepage and dashboard
+        document.querySelector('a[href="#dashboard"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('homepage').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Flower Garden Logic with Heart Particles and Counter
+        let flowerCount = 0;
+        const garden = document.getElementById('flowerGarden');
+        garden.addEventListener('click', (e) => {
+            const rect = garden.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Create flower
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.style.left = `${x - 30}px`;
+            flower.style.top = `${y - 60}px`;
+            flower.innerHTML = `
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="flower-center"></div>
+                <div class="flower-stem"></div>
+            `;
+            garden.appendChild(flower);
+
+            // Randomize flower color
+            const colors = ['#f06292', '#e91e63', '#d81b60', '#7b1fa2', '#4a148c'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            flower.querySelectorAll('.petal').forEach(petal => {
+                petal.style.background = `radial-gradient(circle at 50% 20%, #ffffff 10%, ${randomColor} 50%, ${randomColor} 90%)`;
+            });
+
+            // Create heart particles
+            for (let i = 0; i < 3; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${x - 7.5}px`;
+                heart.style.top = `${y - 60}px`;
+                heart.style.transform = `rotate(-45deg) translate(${Math.random() * 20 - 10}px, ${Math.random() * -20}px)`;
+                garden.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+
+            // Update flower counter
+            flowerCount++;
+            document.getElementById('flowerCount').textContent = flowerCount;
+
+            // Remove flower after animation
+            setTimeout(() => flower.remove(), 5000);
+        });
+
+        // Flower Message Garden Logic
+        const bubbleMessages = [
+            "Your love is a gift we cherish every day.",
+            "Your strength inspires us to be our best.",
+            "Your smile is our sunshine, always and forever.",
+            "Thank you for being our heart and home.",
+            "Your wisdom lights the way for us all.",
+            "Your laughter fills our home with joy.",
+            "Your kindness touches everyone you meet."
+        ];
+        const usedMessages = new Set();
+
+        const messageGarden = document.getElementById('messageGarden');
+        for (let i = 0; i < 6; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.animationDelay = `${i * 0.5}s`;
+            bubble.innerHTML = `
+                <div class="bubble-flower">
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-petal"></div>
+                    <div class="bubble-center"></div>
+                </div>
+            `;
+            messageGarden.appendChild(bubble);
+
+            bubble.addEventListener('click', () => {
+                if (bubble.classList.contains('popping')) return;
+                bubble.classList.add('popping');
+                const popup = document.createElement('div');
+                popup.className = 'message-popup';
+                let message;
+                do {
+                    message = bubbleMessages[Math.floor(Math.random() * bubbleMessages.length)];
+                } while (usedMessages.has(message));
+                usedMessages.add(message);
+                popup.innerHTML = `
+                    <p class="text-lg text-gray-800">${message}</p>
+                    <button onclick="this.parentElement.remove()">Close</button>
+                `;
+                document.body.appendChild(popup);
+                setTimeout(() => bubble.remove(), 500);
+            });
+        }
+
+        // Heart Blossom Game Logic
+        const blossomMessages = [
+            "Your kindness warms every heart you touch.",
+            "Your laughter is our favorite melody.",
+            "Your courage is a beacon for us all.",
+            "Your love makes every day brighter.",
+            "Your grace is our endless inspiration."
+        ];
+        let blossomScore = 0;
+        let collectedMessages = [];
+        const heartBlossom = document.getElementById('heartBlossom');
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            heart.style.left = `${Math.random() * (heartBlossom.offsetWidth - 30)}px`;
+            heart.style.animationDuration = `${4 + Math.random() * 2}s`;
+            heartBlossom.appendChild(heart);
+
+            heart.addEventListener('click', () => {
+                heart.style.animationPlayState = 'paused';
+                blossomScore++;
+                const message = blossomMessages[Math.floor(Math.random() * blossomMessages.length)];
+                collectedMessages.push(message);
+                document.getElementById('blossomScore').textContent = blossomScore;
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'blossom-message';
+                messageDiv.style.left = `${parseFloat(heart.style.left) + 15}px`;
+                const currentY = heart.getBoundingClientRect().top - heartBlossom.getBoundingClientRect().top;
+                messageDiv.style.top = `${currentY - 60}px`; // Position above the heart
+                messageDiv.innerHTML = `
+                    <div class="flower" style="width: 40px; height: 40px;">
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="flower-center" style="width: 12px; height: 12px;"></div>
+                    </div>
+                    <p class="text-sm text-gray-800 mt-2 max-w-xs">${message}</p>
+                `;
+                heartBlossom.appendChild(messageDiv);
+
+                // Randomize flower color
+                const colors = ['#f06292', '#e91e63', '#d81b60', '#7b1fa2', '#4a148c'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                messageDiv.querySelectorAll('.petal').forEach(petal => {
+                    petal.style.background = `radial-gradient(circle at 50% 20%, #ffffff 10%, ${randomColor} 50%, ${randomColor} 90%)`;
+                });
+
+                // Remove the heart but keep the message
+                heart.remove();
+            });
+
+            setTimeout(() => heart.remove(), 6000);
+        }
+
+        // Spawn hearts every 1-2 seconds
+        setInterval(createFallingHeart, 1500);
+
+        // Collect Love Button
+        document.getElementById('collectLove').addEventListener('click', () => {
+            const popup = document.createElement('div');
+            popup.className = 'message-popup';
+            let messageContent = `<p class="text-lg text-gray-800">You bloomed ${blossomScore} messages of love!</p>`;
+            if (collectedMessages.length > 0) {
+                messageContent += `<p class="text-sm text-gray-700 mt-2">Messages you discovered:</p><ul class="text-sm text-gray-700 list-disc list-inside">`;
+                collectedMessages.forEach(msg => {
+                    messageContent += `<li>${msg}</li>`;
+                });
+                messageContent += `</ul>`;
+            } else {
+                messageContent += `<p class="text-sm text-gray-700 mt-2">Click more hearts to collect messages!</p>`;
+            }
+            popup.innerHTML = `
+                ${messageContent}
+                <button onclick="this.parentElement.remove()">Close</button>
+            `;
+            document.body.appendChild(popup);
+            blossomScore = 0;
+            collectedMessages = [];
+            document.getElementById('blossomScore').textContent = blossomScore;
+        });
+
+        // Love Petal Cascade Logic
+        const cascadeMessages = [
+            "Your love is the heartbeat of our family.",
+            "Your wisdom guides us through every storm.",
+            "Your joy fills our lives with color.",
+            "Your strength is our foundation.",
+            "Your heart is our forever home."
+        ];
+        const petalCascade = document.getElementById('petalCascade');
+
+        function createFallingPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'falling-petal';
+            petal.style.left = `${Math.random() * (petalCascade.offsetWidth - 20)}px`;
+            petal.style.animationDuration = `${6 + Math.random() * 3}s`;
+            petalCascade.appendChild(petal);
+
+            // Randomize petal color
+            const colors = ['#f06292', '#e91e63', '#d81b60', '#7b1fa2', '#4a148c'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            petal.style.background = `radial-gradient(circle at 50% 20%, #ffffff 10%, ${randomColor} 50%, ${randomColor} 90%)`;
+
+            function showMessage(event) {
+                petal.style.animationPlayState = 'paused';
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'cascade-message';
+                const x = parseFloat(petal.style.left) + 10;
+                const y = petal.getBoundingClientRect().top - petalCascade.getBoundingClientRect().top;
+                messageDiv.style.left = `${x}px`;
+                messageDiv.style.top = `${y + 30}px`; // Position below the petal
+                const randomMessage = cascadeMessages[Math.floor(Math.random() * cascadeMessages.length)];
+                messageDiv.innerHTML = `
+                    <div class="flower" style="width: 40px; height: 40px;">
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="petal" style="width: 14px; height: 20px;"></div>
+                        <div class="flower-center" style="width: 12px; height: 12px;"></div>
+                    </div>
+                    <p class="text-sm text-gray-800 mt-2 max-w-xs">${randomMessage}</p>
+                `;
+                petalCascade.appendChild(messageDiv);
+
+                // Match flower color to petal
+                messageDiv.querySelectorAll('.petal').forEach(p => {
+                    p.style.background = `radial-gradient(circle at 50% 20%, #ffffff 10%, ${randomColor} 50%, ${randomColor} 90%)`;
+                });
+
+                // Remove the petal but keep the message
+                petal.remove();
+            }
+
+            petal.addEventListener('click', showMessage);
+            petal.addEventListener('mouseenter', showMessage);
+
+            setTimeout(() => petal.remove(), 9000);
+        }
+
+        // Spawn petals every 1-1.5 seconds
+        setInterval(createFallingPetal, 1200);
+    </script>
+</body>
+</html>
